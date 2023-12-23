@@ -11,4 +11,5 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("zhalgas.pack_plugins")
+local plugins = require("zhantaram.plugins_list")
+require("lazy").setup(plugins)

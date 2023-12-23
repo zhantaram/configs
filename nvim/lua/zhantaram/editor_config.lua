@@ -1,21 +1,25 @@
-local lspconfig = require('lspconfig')
+vim.opt.nu = true
+vim.opt.relativenumber = true
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab  = true
+vim.opt.smartindent = true
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+vim.opt.isfname:append("@-@")
+vim.opt.updatetime = 50
+vim.opt.termguicolors = true
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-lspconfig.clangd.setup {
-  cmd = { "/home/zhantaram/.installer/clang+llvm-16.0.4-x86_64-linux-gnu-ubuntu-22.04/bin/clangd" },
-  capabilities = capabilities,
-}
-
-lspconfig.gopls.setup {
-  cmd = { "/home/zhantaram/.installer/go/bin/gopls" },
-  capabilities = capabilities,
-}
-
-lspconfig.lua_ls.setup {
-  cmd = { "/home/zhantaram/.installer/lua-language-server-3.7.0/bin/lua-language-server" },
-  capabilities = capabilities,
-}
+vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<Space>", vim.cmd.NOP)
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-w>|", vim.cmd.vsplit)
+vim.keymap.set("n", "<C-w>-", vim.cmd.split)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -39,9 +43,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-vim.api.nvim_create_autocmd('BufWritePre', {
-  group = vim.api.nvim_create_augroup('BufferFormatter', {}),
-  callback = function()
-    vim.lsp.buf.format { async = false }
-  end
-})
+

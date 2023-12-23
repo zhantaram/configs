@@ -15,7 +15,7 @@ local treesitter = {
         "cpp",
         "python",
         "go",
-        "rust",
+        -- "rust",
       },
       sync_install = false,
       highlight = { enable = true },
@@ -47,16 +47,40 @@ local telescope = {
     "nvim-lua/plenary.nvim",
     "BurntSushi/ripgrep",
   },
+  config = function()
+    local builtin = require("telescope.builtin")
+    vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
+    vim.keymap.set("n", "<leader>ps", builtin.live_grep, {})
+  end,
 }
 
 -- Quick navigaion
 local harpoon = {
-  "ThePrimeagen/harpoon"
+  "ThePrimeagen/harpoon",
+  config = function()
+    local mark = require("harpoon.mark")
+    local ui = require("harpoon.ui")
+    vim.keymap.set("n", "<leader>a", mark.add_file)
+    vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+    vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end)
+    vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)
+    vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)
+    vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)
+  end,
 }
 
 -- Lsp configuration
 local lspconfig = {
   "neovim/nvim-lspconfig",
+  config = function()
+    local lspconfig = require('lspconfig')
+    lspconfig.clangd.setup {
+    }
+    lspconfig.gopls.setup {
+    }
+    lspconfig.lua_ls.setup {
+    }
+  end,
 }
 
 -- Lsp autocomplete
