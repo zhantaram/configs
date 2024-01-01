@@ -1,14 +1,14 @@
-vim.opt.nu = true
+vim.opt.nu             = true
 vim.opt.relativenumber = true
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab  = true
-vim.opt.smartindent = true
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
+vim.opt.tabstop        = 2
+vim.opt.softtabstop    = 2
+vim.opt.shiftwidth     = 2
+vim.opt.expandtab      = true
+vim.opt.smartindent    = true
+vim.opt.hlsearch       = false
+vim.opt.incsearch      = true
+vim.opt.scrolloff      = 8
+vim.opt.signcolumn     = "yes"
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.termguicolors = true
@@ -20,6 +20,14 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-w>|", vim.cmd.vsplit)
 vim.keymap.set("n", "<C-w>-", vim.cmd.split)
+vim.keymap.set({ "i", "n" }, "<C-f>", function()
+  local client = vim.lsp.get_active_clients()
+  if next(client) then
+    vim.lsp.buf.format { async = false }
+  end
+  vim.cmd.w()
+  vim.cmd.stopinsert()
+end, opts)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -42,5 +50,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end
 })
-
-
