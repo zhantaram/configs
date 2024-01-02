@@ -75,6 +75,7 @@ local lspconfig = {
   config = function()
     local lspconfig = require('lspconfig')
     lspconfig.clangd.setup {
+      filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "cppm" }
     }
     lspconfig.gopls.setup {
     }
