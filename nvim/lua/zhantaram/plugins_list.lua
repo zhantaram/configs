@@ -19,7 +19,6 @@ local treesitter = {
       },
       sync_install = false,
       highlight = { enable = true },
-      indent = { enable = true },
     })
   end
 }
@@ -75,11 +74,13 @@ local lspconfig = {
   config = function()
     local lspconfig = require('lspconfig')
     lspconfig.clangd.setup {
+      cmd = { "/home/zhantaram/.installer/clang+llvm-17.0.6-x86_64-linux-gnu-ubuntu-22.04/bin/clangd" },
       filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "cppm" }
     }
     lspconfig.gopls.setup {
     }
     lspconfig.lua_ls.setup {
+      cmd = { "/home/zhantaram/.installer/lua-language-server" },
     }
   end,
 }
