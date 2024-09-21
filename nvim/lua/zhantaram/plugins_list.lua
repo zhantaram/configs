@@ -15,7 +15,8 @@ local treesitter = {
         "cpp",
         "python",
         "go",
-        -- "rust",
+        "latex",
+        "rust",
       },
       sync_install = false,
       highlight = { enable = true },
@@ -74,13 +75,21 @@ local lspconfig = {
   config = function()
     local lspconfig = require('lspconfig')
     lspconfig.clangd.setup {
-      cmd = { "/home/zhantaram/.installer/clang+llvm-17.0.6-x86_64-linux-gnu-ubuntu-22.04/bin/clangd" },
-      filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "cppm" }
+      cmd = { "/Users/zhantaram/Programming/thirdparty/install/bin/clangd" },
+      filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "cppm" },
     }
     lspconfig.gopls.setup {
     }
     lspconfig.lua_ls.setup {
-      cmd = { "/home/zhantaram/.installer/lua-language-server" },
+      cmd = { "/Users/zhantaram/.installer/lua-language-server/bin/lua-language-server" },
+    }
+    lspconfig.pylsp.setup {
+    }
+    lspconfig.texlab.setup {
+      cmd = { "/Users/zhantaram/.installer/texlab/target/release/texlab" },
+    }
+    lspconfig.rust_analyzer.setup {
+      cmd = { "/Users/zhantaram/.cargo/bin/rust-analyzer" },
     }
   end,
 }
@@ -122,6 +131,19 @@ local comment = {
   opts = {}
 }
 
+-- Fold
+local fold = {
+  "kevinhwang91/nvim-ufo",
+  dependencies = {
+    "kevinhwang91/promise-async",
+  },
+  opts = {
+    provider_selector = function(bufnr, filetype, buftype)
+      return { "lsp" }
+    end,
+  },
+}
+
 return {
   treesitter,
   folke,
@@ -131,4 +153,5 @@ return {
   lspconfig,
   cmp,
   comment,
+  fold,
 }
