@@ -26,6 +26,9 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-w>|", vim.cmd.vsplit)
 vim.keymap.set("n", "<C-w>-", vim.cmd.split)
+vim.keymap.set("n", "<C-Left>", vim.cmd.tabp)
+vim.keymap.set("n", "<C-Right>", vim.cmd.tabn)
+vim.keymap.set("n", "<C-Up>", vim.cmd.tabnew)
 vim.keymap.set({ "i", "n" }, "<C-f>", function()
   local client = vim.lsp.get_active_clients()
   if next(client) then
@@ -43,6 +46,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gt', "<cmd>tab split | lua vim.lsp.buf.definition()<CR>", {})
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
