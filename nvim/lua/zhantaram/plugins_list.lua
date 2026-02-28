@@ -11,12 +11,8 @@ local treesitter = {
         "lua",
         "vim",
         "vimdoc",
-        "query",
         "cpp",
         "python",
-        "go",
-        "latex",
-        "rust",
       },
       sync_install = false,
       highlight = { enable = true },
@@ -48,9 +44,18 @@ local telescope = {
     "BurntSushi/ripgrep",
   },
   config = function()
+    require("telescope").setup {
+      defaults = {
+        layout_strategy = "vertical",
+      }
+    }
+
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
     vim.keymap.set("n", "<leader>ps", builtin.live_grep, {})
+    vim.keymap.set("n", "<leader>pS", function(opts) {
+      builtin.live_grep { glob_pattern="!**/*test*/**" }
+    })
   end,
 }
 
@@ -73,24 +78,11 @@ local harpoon = {
 local lspconfig = {
   "neovim/nvim-lspconfig",
   config = function()
-    local lspconfig = require('lspconfig')
-    lspconfig.clangd.setup {
-      cmd = { "/Users/zhantaram/Programming/thirdparty/install/bin/clangd" },
-      filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto", "cppm" },
-    }
-    lspconfig.gopls.setup {
-    }
-    lspconfig.lua_ls.setup {
-      cmd = { "/Users/zhantaram/.installer/lua-language-server/bin/lua-language-server" },
-    }
-    lspconfig.pylsp.setup {
-    }
-    lspconfig.texlab.setup {
-      cmd = { "/Users/zhantaram/.installer/texlab/target/release/texlab" },
-    }
-    lspconfig.rust_analyzer.setup {
-      cmd = { "/Users/zhantaram/.cargo/bin/rust-analyzer" },
-    }
+    vim.lsp.config("clangd", {
+      cmd = { "/bin/clangd" },
+    })
+    vim.lsp.config("pylsp")
+    vim.lsp.enable({"clangd", "pylsp"})
   end,
 }
 
