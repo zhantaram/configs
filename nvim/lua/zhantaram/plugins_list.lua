@@ -53,9 +53,9 @@ local telescope = {
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
     vim.keymap.set("n", "<leader>ps", builtin.live_grep, {})
-    vim.keymap.set("n", "<leader>pS", function(opts) {
+    vim.keymap.set("n", "<leader>pS", function(opts)
       builtin.live_grep { glob_pattern="!**/*test*/**" }
-    })
+    end)
   end,
 }
 
