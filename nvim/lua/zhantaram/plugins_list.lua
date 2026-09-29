@@ -3,7 +3,7 @@ local treesitter = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   config = function()
-    local configs = require("nvim-treesitter.configs")
+    local configs = require("nvim-treesitter.config")
 
     configs.setup({
       ensure_installed = {
@@ -78,11 +78,10 @@ local harpoon = {
 local lspconfig = {
   "neovim/nvim-lspconfig",
   config = function()
-    vim.lsp.config("clangd", {
-      cmd = { "/bin/clangd" },
+    vim.lsp.config("clangd")
+    vim.lsp.enable({
+      "clangd",
     })
-    vim.lsp.config("pylsp")
-    vim.lsp.enable({"clangd", "pylsp"})
   end,
 }
 
@@ -131,9 +130,33 @@ local fold = {
   },
   opts = {
     provider_selector = function(bufnr, filetype, buftype)
-      return { "lsp" }
+      return {
+        "treesitter",
+        "indent",
+      }
     end,
   },
+}
+
+-- Diffview
+local diffview = {
+  "sindrets/diffview.nvim",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+    "lewis6991/gitsigns.nvim",
+  },
+  keys = {
+    { "<leader>gdo", "<cmd>DiffviewOpen<cr>", },
+    { "<leader>gdc", "<cmd>DiffviewClose<cr>", },
+  },
+  config = {
+    watch_index = true,
+    file_panel = {
+      win_config = {
+        width = 60,
+      }
+    }
+  }
 }
 
 return {
@@ -146,4 +169,5 @@ return {
   cmp,
   comment,
   fold,
+  diffview,
 }
