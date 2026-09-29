@@ -78,7 +78,7 @@ local harpoon = {
 local lspconfig = {
   "neovim/nvim-lspconfig",
   config = function()
-    vim.lsp.config("clangd")
+    vim.lsp.config("clangd", {})
     vim.lsp.enable({
       "clangd",
     })
