@@ -1,0 +1,13 @@
+services:
+  dev:
+    build: .
+    container_name: devsandbox
+    volumes:
+      - ./workdir:/home/dev/workdir
+    working_dir: /home/dev
+    stdin_open: true
+    tty: true
+    hostname: d9ee6b7b31cb
+    cap_add:
+      - NET_ADMIN
+    network_mode: bridge
