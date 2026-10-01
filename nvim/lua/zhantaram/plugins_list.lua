@@ -115,13 +115,6 @@ local cmp = {
   end,
 }
 
--- Commenter
-local comment = {
-  "numToStr/Comment.nvim",
-  lazy = false,
-  opts = {}
-}
-
 -- Fold
 local fold = {
   "kevinhwang91/nvim-ufo",
@@ -167,7 +160,6 @@ return {
   harpoon,
   lspconfig,
   cmp,
-  comment,
   fold,
   diffview,
 }
